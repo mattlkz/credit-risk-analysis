@@ -2,8 +2,7 @@
 
 > **A dual-stream analytics platform combining descriptive BI (Power BI) and predictive AI (Streamlit) to optimize loan approval decisions.**
 
-![Dashboard Preview](assets/dashboard_screenshot_main.png)
-*(Note: Add your dashboard screenshot in an 'assets' folder)*
+![Dashboard Preview](Content/assets/upscalemedia-transformed.jpeg)
 
 ## 📌 Executive Summary
 Managing a $3.2M subprime lending portfolio requires balancing risk with opportunity. Traditional manual reviews led to a **30% default rate**. This project deploys a two-stage solution:
