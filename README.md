@@ -1,132 +1,55 @@
-# German Credit Risk Analysis
+# 🏦 Credit Risk Oversight System
 
-A comprehensive machine learning project for predicting credit risk using the German Credit Dataset.
+> **A dual-stream analytics platform combining descriptive BI (Power BI) and predictive AI (Streamlit) to optimize loan approval decisions.**
 
-## Project Structure
+![Dashboard Preview](assets/dashboard_screenshot_main.png)
+*(Note: Add your dashboard screenshot in an 'assets' folder)*
 
-```
+## 📌 Executive Summary
+Managing a $3.2M subprime lending portfolio requires balancing risk with opportunity. Traditional manual reviews led to a **30% default rate**. This project deploys a two-stage solution:
+1.  **Strategic Oversight (Power BI):** A dashboard to identify high-risk segments (e.g., "Skilled Workers") and simulate profitability scenarios.
+2.  **Operational Action (Streamlit):** A machine learning web app allowing loan officers to score new applicants in real-time with **77% accuracy**.
+
+---
+
+## 🛠 System Architecture
+
+The project is structured into two distinct pipelines:
+
+### 1. The Analytics Pipeline (Business Intelligence)
+* **Goal:** Root cause analysis of historical defaults.
+* **Tech:** Python (Pandas) $\rightarrow$ Power BI (DAX, Decomposition Trees).
+* **Key Output:** Discovered that **Skilled Workers** carry a 2x higher default risk than Unskilled labor, contradicting traditional credit assumptions.
+
+### 2. The Predictive Pipeline (Machine Learning)
+* **Goal:** Real-time risk scoring for new applicants.
+* **Tech:** Scikit-Learn (Extra Trees Classifier) $\rightarrow$ Streamlit.
+* **Performance:** The **Random Forest** model achieved the highest stability, while **Extra Trees** was selected for production speed.
+
+| Model | Accuracy | Status |
+|-------|----------|--------|
+| **Random Forest** | **77.0%** | 🏆 Best Performer |
+| Extra Trees | 74.5% | ⚡ Deployed (Low Latency) |
+| XGBoost | 73.5% | |
+| Decision Tree | 70.5% | Baseline |
+
+---
+
+## 📂 Repository Structure
+
+```text
 CreditRisk/
-├── Content/
-│   ├── App/                    # Streamlit web application
-│   │   └── app.py
-│   ├── data/                   # Data directory
-│   │   ├── raw/               # Original dataset
-│   │   └── Processed/         # Cleaned data for Power BI
-│   ├── Models/                # Trained models and encoders
-│   │   ├── extra_trees_credit_model.pkl
-│   │   └── *_encoder.pkl
-│   └── notebooks/             # Jupyter notebooks
-│       ├── analysis_model.ipynb
-│       └── powerbi_data_prep.ipynb
-├── .gitignore
+├── data/
+│   ├── raw/german_credit_data.csv       # Original Kaggle dataset
+│   └── processed/                       # ETL output for Power BI
+├── notebooks/
+│   ├── 01_powerbi_data_prep.ipynb       # ETL Pipeline (Cleaning & Logic)
+│   └── 02_analysis_model.ipynb          # ML Training & EDA
+├── models/
+│   ├── extra_trees_credit_model.pkl     # Serialized Model
+│   └── *_encoder.pkl                    # Categorical Encoders
+├── dashboard/
+│   └── Credit_Risk_Dashboard.pbix       # The Power BI File
+├── app/
+│   └── app.py                           # Streamlit Web Application
 └── README.md
-```
-
-## Features
-
-- **Exploratory Data Analysis (EDA)**: Comprehensive analysis of credit risk factors
-- **Machine Learning Models**: Comparison of Decision Tree, Random Forest, Extra Trees, and XGBoost
-- **Web Application**: Interactive Streamlit app for credit risk prediction
-- **Power BI Ready**: Cleaned dataset with business-friendly labels for dashboard creation
-
-## Dataset
-
-The German Credit Dataset contains 1000 credit applications with 10 features including:
-- Demographics (Age, Sex, Job, Housing)
-- Financial Status (Saving accounts, Checking account)
-- Loan Details (Credit amount, Duration, Purpose)
-- Risk Classification (Good/Bad)
-
-## Models Performance
-
-| Model | Accuracy |
-|-------|----------|
-| Random Forest | 77.0% |
-| Extra Trees | 74.5% |
-| XGBoost | 73.5% |
-| Decision Tree | 70.5% |
-
-## Installation
-
-### Requirements
-- Python 3.8+
-- Jupyter Notebook
-- Streamlit
-
-### Setup
-
-1. Clone the repository:
-```bash
-git clone https://github.com/mattlkz/credit-risk-analysis.git
-cd credit-risk-analysis
-```
-
-2. Install dependencies:
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn xgboost streamlit joblib
-```
-
-## Usage
-
-### Running the Notebooks
-
-Navigate to the notebooks directory:
-```bash
-cd Content/notebooks
-jupyter notebook
-```
-
-### Running the Web Application
-
-Navigate to the App directory:
-```bash
-cd Content/App
-streamlit run app.py
-```
-
-### Power BI Dashboard
-
-The cleaned dataset is available at:
-- `Content/data/Processed/german_credit_data_powerbi.csv`
-- `Content/data/Processed/data_dictionary_powerbi.csv`
-
-## Key Insights
-
-- **Bad Risk Indicators:**
-  - Younger age (avg 34 vs 36 years)
-  - Higher credit amounts (avg $3,938 vs $2,985)
-  - Longer durations (avg 24.9 vs 19.2 months)
-
-- **Correlations:**
-  - Strong correlation (0.62) between Credit amount and Duration
-  - Job level moderately correlates (0.29) with Credit amount
-
-## Project Workflow
-
-1. **Data Exploration** (`analysis_model.ipynb`)
-   - Load and analyze the German Credit Dataset
-   - Visualize distributions and relationships
-   - Identify risk factors
-
-2. **Model Training** (`analysis_model.ipynb`)
-   - Encode categorical variables
-   - Train multiple classification models
-   - Compare performance metrics
-
-3. **Power BI Preparation** (`powerbi_data_prep.ipynb`)
-   - Clean and transform data
-   - Create business-friendly labels
-   - Generate calculated metrics
-
-4. **Deployment** (`app.py`)
-   - Load trained model
-   - Create interactive prediction interface
-   - Deploy with Streamlit
-
-## License
-
-This project is available for educational purposes.
-
-## Contact
-
-For questions or feedback, please open an issue on GitHub.
