@@ -17,8 +17,8 @@ The project is structured into two distinct pipelines:
 
 ### 1. The Analytics Pipeline (Business Intelligence)
 * **Goal:** Root cause analysis of historical defaults.
-* **Tech:** Python (Pandas) $\rightarrow$ Power BI (DAX, Decomposition Trees).
-* **Key Output:** Discovered that **Skilled Workers** carry a 2x higher default risk than Unskilled labor, contradicting traditional credit assumptions.
+* **Tech:** Python (Pandas) → Power BI (DAX, Decomposition Trees).
+* **Key Output:** Discovered that **Highly Skilled Workers** have a **34.5% default rate** compared to **28% for Semi-Skilled workers** (+23% risk increase), contradicting traditional credit assumptions.
 
 ### 2. The Predictive Pipeline (Machine Learning)
 * **Goal:** Real-time risk scoring for new applicants.
@@ -38,17 +38,26 @@ The project is structured into two distinct pipelines:
 
 ```text
 CreditRisk/
-├── data/
-│   ├── raw/german_credit_data.csv       # Original Kaggle dataset
-│   └── processed/                       # ETL output for Power BI
-├── notebooks/
-│   ├── 01_powerbi_data_prep.ipynb       # ETL Pipeline (Cleaning & Logic)
-│   └── 02_analysis_model.ipynb          # ML Training & EDA
-├── models/
-│   ├── extra_trees_credit_model.pkl     # Serialized Model
-│   └── *_encoder.pkl                    # Categorical Encoders
-├── dashboard/
-│   └── Credit_Risk_Dashboard.pbix       # The Power BI File
-├── app/
-│   └── app.py                           # Streamlit Web Application
+├── Content/
+│   ├── data/
+│   │   ├── raw/
+│   │   │   └── german_credit_data.csv          # Original dataset (1,000 applications)
+│   │   └── Processed/
+│   │       ├── german_credit_data_powerbi.csv  # Cleaned data with business labels
+│   │       └── data_dictionary_powerbi.csv     # Column documentation
+│   ├── notebooks/
+│   │   ├── powerbi_data_prep.ipynb             # ETL Pipeline (cleaning & feature engineering)
+│   │   └── analysis_model.ipynb                # ML Training & EDA
+│   ├── Models/
+│   │   ├── extra_trees_credit_model.pkl        # Production model (74.5% accuracy)
+│   │   ├── Sex_encoder.pkl                     # Categorical encoders
+│   │   ├── Housing_encoder.pkl
+│   │   ├── Saving accounts_encoder.pkl
+│   │   ├── Checking account_encoder.pkl
+│   │   └── target_encoder.pkl
+│   ├── App/
+│   │   └── app.py                              # Streamlit Web Application
+│   └── assets/
+│       └── upscalemedia-transformed.jpeg       # Dashboard screenshot
+├── .gitignore
 └── README.md
